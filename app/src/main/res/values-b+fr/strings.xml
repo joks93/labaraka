@@ -1,0 +1,123 @@
+<resources>
+    <string name="app_name">LaBaraka</string>
+
+    /* LIST PRODUCT SHEET ACTIVITY */
+    <string name="select_size_spinner">Votre taille</string>
+    <string name="add_basket_button">AJOUTER AU PANIER</string>
+    <string name="info_button">+ INFO</string>
+    <string name="size_guide_button">GUIDE DES TAILLES</string>
+    <string name="shipping_button">LIVRAISON</string>
+    <string name="returns_button">RETOURS</string>
+    <string name="share_button">PARTAGER</string>
+    <string name="see_also">VOUS AIMERIEZ ÉGALEMENT</string>
+
+    /*LIST APPBAR ICONS ACTIONS*/
+    <string name="action_shoppingbasket">Aller au panier</string>
+    <string name="action_favorite">Ajouter à mes favoris!</string>
+    <string name="action_unfavorite">Supprimer de mes favoris!</string>
+
+    /*LIST NAVIGATION BAR TAB ACTIONS */
+    <string name="tab_categories">Catégories</string>
+    <string name="tab_products">Produits</string>
+    <string name="tab_basket">Mon panier</string>
+    <string name="tab_login">Se connecter</string>
+    <string name="tab_account">Mon compte</string>
+
+
+    /*LIST CATEGORIES SUPPORTED*/
+    <string-array name="CATEGORIES">
+        <item>FEMME</item>
+        <item>HOMME</item>
+        <item>FILLE</item>
+        <item>GARÇON</item>
+        <item>MAISON</item>
+    </string-array>
+
+    /*LIST SUBCATEGORIES SUPPORTED BY EACH CATEGORY */
+    <string-array name="WOMAN">
+        <item>NOUVEAUTÉS</item>
+        <item>MANTEAUX</item>
+        <item>VESTES</item>
+        <item>BLOUSONS</item>
+        <item>ROBES</item>
+        <item>COMBINAISONS</item>
+        <item>CHEMISES</item>
+        <item>BODY</item>
+        <item>PANTALONS</item>
+        <item>JEANS</item>
+        <item>SHORTS</item>
+        <item>JUPES</item>
+        <item>PULLS</item>
+        <item>T-SHIRTS</item>
+        <item>SWEAT-SHIRTS</item>
+        <item>CHUASSURES</item>
+        <item>SACS</item>
+        <item>ACCESSOIRES</item>
+        <item>LINGERIE</item>
+    </string-array>
+
+    <string-array name="MAN">
+        <item>NOUVEAUTÉS</item>
+        <item>MANTEAUX ET PARKAS</item>
+        <item>BLOUSONS</item>
+        <item>BOMBERS</item>
+        <item>VESTES</item>
+        <item>COSTUMES</item>
+        <item>PANTALONS</item>
+        <item>BERMUDAS</item>
+        <item>JEANS</item>
+        <item>JOGGING</item>
+        <item>CHEMISES</item>
+        <item>T-SHIRTS</item>
+        <item>SWEAT-SHIRTS</item>
+        <item>PULLS ET GILETS</item>
+        <item>CHAUSSURES</item>
+        <item>SACS</item>
+        <item>ACCESSOIRES</item>
+        <item>SOUS-VÊTEMENTS</item>
+    </string-array>
+
+    <string-array name="GIRL">
+        <item>NOUVEAUTÉS</item>
+        <item>BLOUSONS</item>
+        <item>ROBES</item>
+        <item>VESTES ET PULLS</item>
+        <item>SWEAT-SHIRTS</item>
+        <item>CHEMISES</item>
+        <item>T-SHIRTS</item>
+        <item>JEANS</item>
+        <item>JUPES ET SHORTS</item>
+        <item>PANTALONS</item>
+        <item>BASIQUES</item>
+        <item>SPORT</item>
+        <item>CHAUSSURES</item>
+        <item>SACS ET SACS À DOS</item>
+        <item>ACCESSOIRES</item>
+        <item>SOUS-VÊTEMENTS ET PYJAMAS</item>
+    </string-array>
+
+    <string-array name="BOY">
+        <item>NOUVEAUTÉS</item>
+        <item>BLOUSONS</item>
+        <item>VESTES ET PULLS</item>
+        <item>SWEAT-SHIRTS</item>
+        <item>CHEMISES</item>
+        <item>T-SHIRTS</item>
+        <item>JEANS</item>
+        <item>PANTALONS</item>
+        <item>BERMUDAS</item>
+        <item>BASIQUES</item>
+        <item>SPORT</item>
+        <item>CHAUSSURES</item>
+        <item>SACS ET SACS À DOS</item>
+        <item>ACCESSOIRES</item>
+        <item>SOUS-VÊTEMENTS ET PYJAMAS</item>
+    </string-array>
+
+    <string-array name="HOME">
+        <item>NOUVEAUTÉS</item>
+        <item>CHAMBRES À COUCHER</item>
+        <item>SALLES DE BAIN</item>
+    </string-array>
+
+</resources>

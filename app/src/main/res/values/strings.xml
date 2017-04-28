@@ -1,0 +1,123 @@
+<resources>
+    <string name="app_name">LaBaraka</string>
+
+    /* LIST PRODUCT SHEET ACTIVITY */
+    <string name="select_size_spinner">Your size</string>
+    <string name="add_basket_button">ADD TO CART</string>
+    <string name="info_button">+ INFO</string>
+    <string name="size_guide_button">SIZE GUIDE</string>
+    <string name="shipping_button">SHIPPING</string>
+    <string name="returns_button">RETURNS</string>
+    <string name="share_button">SHARE</string>
+    <string name="see_also">YOU MIGHT ALSO LIKE</string>
+
+    /*LIST APPBAR ICONS ACTIONS*/
+    <string name="action_shoppingbasket">Go to basket</string>
+    <string name="action_favorite">Save this product!</string>
+    <string name="action_unfavorite">Unsave this product!</string>
+
+    /*LIST NAVIGATION BAR TAB ACTIONS */
+    <string name="tab_categories">Categories</string>
+    <string name="tab_products">Products</string>
+    <string name="tab_basket">My basket</string>
+    <string name="tab_login">Log in</string>
+    <string name="tab_account">My account</string>
+
+    /*LIST CATEGORIES SUPPORTED*/
+    <string-array name="CATEGORIES">
+        <item>WOMAN</item>
+        <item>MAN</item>
+        <item>GIRL</item>
+        <item>BOY</item>
+        <item>HOME</item>
+    </string-array>
+
+    /*LIST SUBCATEGORIES SUPPORTED BY EACH CATEGORY */
+    <string-array name="WOMAN">
+        <item>NEW IN</item>
+        <item>OUTERWEAR</item>
+        <item>BLAZERS</item>
+        <item>JACKETS</item>
+        <item>DRESSES</item>
+        <item>JUMPSUITS</item>
+        <item>TOPS</item>
+        <item>BODY</item>
+        <item>TROUSERS</item>
+        <item>JEANS</item>
+        <item>SHORTS</item>
+        <item>SKIRTS</item>
+        <item>KNITWEAR</item>
+        <item>T-SHIRTS</item>
+        <item>SWEATSHIRTS</item>
+        <item>SHOES</item>
+        <item>BAGS</item>
+        <item>ACCESSORIES</item>
+        <item>UNDERWEAR</item>
+    </string-array>
+
+    <string-array name="MAN">
+        <item>NEW IN</item>
+        <item>OUTERWEAR</item>
+        <item>JACKETS</item>
+        <item>BOMBERS</item>
+        <item>BLAZERS</item>
+        <item>SUITS</item>
+        <item>TROUSERS</item>
+        <item>SHORTS</item>
+        <item>JEANS</item>
+        <item>JOGGING</item>
+        <item>SHIRTS</item>
+        <item>T-SHIRTS</item>
+        <item>POLOS</item>
+        <item>SWEATSHIRTS</item>
+        <item>SWEATERS AND CARDIGANS</item>
+        <item>SHOES</item>
+        <item>BAGS</item>
+        <item>ACCESSORIES</item>
+        <item>UNDERWEAR</item>
+    </string-array>
+
+    <string-array name="GIRL">
+        <item>NEW IN</item>
+        <item>JACKETS</item>
+        <item>DRESSES AND JUMPSUITS</item>
+        <item>SWEATERS AND CARDIGANS</item>
+        <item>SHIRTS AND BLOUSES</item>
+        <item>T-SHIRTS</item>
+        <item>JEANS</item>
+        <item>SKIRTS AND SHORTS</item>
+        <item>LEGGINGS AND TROUSERS</item>
+        <item>BASICS</item>
+        <item>JOGGING</item>
+        <item>SHOES</item>
+        <item>T-BAGS AND BACKPACKS</item>
+        <item>ACCESSORIES</item>
+        <item>UNDERWEAR AND PYJAMAS</item>
+    </string-array>
+
+    <string-array name="BOY">
+        <item>NEW IN</item>
+        <item>JACKETS</item>
+        <item>SWEATERS AND CARDIGANS</item>
+        <item>SWEATSHIRTS</item>
+        <item>SHIRTS</item>
+        <item>T-SHIRTS</item>
+        <item>JEANS</item>
+        <item>TROUSERS</item>
+        <item>SHORTS</item>
+        <item>BASICS</item>
+        <item>JOGGING</item>
+        <item>SHOES</item>
+        <item>T-BAGS AND BACKPACKS</item>
+        <item>ACCESSORIES</item>
+        <item>UNDERWEAR AND PYJAMAS</item>
+    </string-array>
+
+    <string-array name="HOME">
+        <item>NEW IN</item>
+        <item>BEDROOMS</item>
+        <item>BATHROOMS</item>
+        <item>...</item>
+    </string-array>
+
+</resources>
