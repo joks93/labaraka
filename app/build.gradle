@@ -41,4 +41,6 @@ dependencies {
     compile 'com.pavelsikun:materialdesignicons:1.0'
     compile 'com.github.lsjwzh.RecyclerViewPager:lib:v1.1.2'
 
+    compile 'me.relex:circleindicator:1.2.2@aar'
+
 }
