@@ -2,14 +2,16 @@ package com.example.nacim.labaraka;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.LinearLayout;
-import com.lsjwzh.widget.recyclerviewpager.RecyclerViewPager;
 import com.piotrek.customspinner.CustomSpinner;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +23,7 @@ import java.util.List;
 public class ProductSheetActivity extends AppCompatActivity {
 
     private ArrayList<String> data;
-    private String size;
+    private ArrayList<String> sizes;
     private Intent intent;
 
 
@@ -43,26 +45,26 @@ public class ProductSheetActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
 
-        /* PRINCIPAL RECYCLER VIEW IMAGES */
-        RecyclerViewPager recyclerViewPager = (RecyclerViewPager) findViewById(R.id.product_sheet_viewpager);
-        LinearLayoutManager layout = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-        recyclerViewPager.setLayoutManager(layout);
-
-        adjustImagesViewPager(R.id.product_sheet_viewpager_linearlayout);
-
-        ArrayList<String> data = new ArrayList<>();
+        /* PRINCIPAL VIEW PAGER IMAGES */
+        data = new ArrayList<>();
         data.add("Image1");
         data.add("Image2");
         data.add("Image3");
         data.add("Image4");
         data.add("Image5");
 
-        ImagesRecyclerViewAdapter imagesRecyclerViewAdapter = new ImagesRecyclerViewAdapter(this, data);
-        recyclerViewPager.setAdapter(imagesRecyclerViewAdapter);
+        ViewPager viewPager = (ViewPager) findViewById(R.id.product_sheet_images_viewpager);
+        ImagesViewPagerAdapter imagesViewPagerAdapter = new ImagesViewPagerAdapter(getSupportFragmentManager(), data);
+        viewPager.setAdapter(imagesViewPagerAdapter);
+        adjustImagesViewPager(R.id.product_sheet_viewpager_linearlayout);
 
+        /*
+        CircleIndicator indicator = (CircleIndicator) findViewById(R.id.product_sheet_indicator);
+        indicator.setViewPager(viewPager);
+        */
 
         /* SIZE SPINNER */
-        List<String> sizes = new ArrayList<>();
+        sizes = new ArrayList<>();
         sizes.add("XS");
         sizes.add("S");
         sizes.add("M");
@@ -131,5 +133,25 @@ public class ProductSheetActivity extends AppCompatActivity {
             }
         }
         return true;
+    }
+
+    private static class ImagesViewPagerAdapter extends FragmentStatePagerAdapter {
+
+        private ArrayList<String> data;
+
+        public ImagesViewPagerAdapter(FragmentManager fm, ArrayList<String> data) {
+            super(fm);
+            this.data = data;
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            return new ImageProductSheetFragment();
+        }
+
+        @Override
+        public int getCount() {
+            return data.size();
+        }
     }
 }
