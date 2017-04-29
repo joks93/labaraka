@@ -12,6 +12,7 @@ import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.LinearLayout;
+import com.flyco.pageindicator.indicator.RoundCornerIndicaor;
 import com.piotrek.customspinner.CustomSpinner;
 import java.util.ArrayList;
 import java.util.List;
@@ -58,10 +59,11 @@ public class ProductSheetActivity extends AppCompatActivity {
         viewPager.setAdapter(imagesViewPagerAdapter);
         adjustImagesViewPager(R.id.product_sheet_viewpager_linearlayout);
 
-        /*
-        CircleIndicator indicator = (CircleIndicator) findViewById(R.id.product_sheet_indicator);
-        indicator.setViewPager(viewPager);
-        */
+        /* VIEW PAGER INDICATORS */
+        RoundCornerIndicaor viewPagerIndicator = (RoundCornerIndicaor) findViewById(R.id.product_sheet_viewpager_indicator);
+        viewPagerIndicator.setViewPager(viewPager);
+
+
 
         /* SIZE SPINNER */
         sizes = new ArrayList<>();
