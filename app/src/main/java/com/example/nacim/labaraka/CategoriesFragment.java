@@ -35,8 +35,6 @@ public class CategoriesFragment extends Fragment {
         layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
 
-        Log.d("HEIGHT-", "--------------------------" + viewRoot.findViewById(R.id.categories_fragment_linear_layout).getHeight());
-
         recyclerViewAdapter = new CategoriesRecyclerViewAdapter(getContext(), layoutManager);
         recyclerView.setAdapter(recyclerViewAdapter);
 

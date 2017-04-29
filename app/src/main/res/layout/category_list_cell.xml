@@ -11,14 +11,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textStyle="bold"
-        android:paddingTop="15dip"/>
+        android:paddingTop="15dp"/>
 
-    <TextView
-        android:id="@+id/category_list_cell_textview"
+    <ImageView
+        android:id="@+id/category_list_cell_illustration"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_gravity="center"
         android:gravity="center"
-        android:background="@color/colorPrimary"/>
+        android:adjustViewBounds="true"
+        android:scaleType="fitXY"
+        android:background="@color/colorPrimaryDark"/>
 
 
     <android.support.v7.widget.RecyclerView

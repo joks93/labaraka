@@ -2,11 +2,13 @@ package com.example.nacim.labaraka;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -41,10 +43,27 @@ public class CategoriesRecyclerViewAdapter extends RecyclerView.Adapter<Categori
         this.linearLayoutManager = layoutManager;
     }
 
-    @Override
+
+    private void initCategoryIllustration(CategoryViewHolder holder,  int idCategory) {
+        if (idCategory == Constants.WOMAN_CATEGORY_ID)
+            holder.categoryIllustration.setImageDrawable(ResourcesCompat.getDrawable(context.getResources(), R.drawable.jupe, null));
+        else if (idCategory == Constants.MAN_CATEGORY_ID)
+            holder.categoryIllustration.setImageDrawable(ResourcesCompat.getDrawable(context.getResources(), R.drawable.jupe, null));
+        else if (idCategory == Constants.GIRL_CATEGORY_ID)
+            holder.categoryIllustration.setImageDrawable(ResourcesCompat.getDrawable(context.getResources(), R.drawable.jupe, null));
+        else if (idCategory == Constants.BOY_CATEGORY_ID)
+            holder.categoryIllustration.setImageDrawable(ResourcesCompat.getDrawable(context.getResources(), R.drawable.jupe, null));
+        else if (idCategory == Constants.HOME_CATEGORY_ID)
+            holder.categoryIllustration.setImageDrawable(ResourcesCompat.getDrawable(context.getResources(), R.drawable.jupe, null));
+    }
+
+        @Override
     public CategoryViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View categoryView = layoutInflater.inflate(R.layout.category_list_cell, parent, false);
-        categoryView.findViewById(R.id.category_list_cell_textview).setMinimumHeight(parent.getMeasuredHeight() / 3);
+
+        ImageView categoryImageView  = (ImageView) categoryView.findViewById(R.id.category_list_cell_illustration);
+        categoryImageView.setMinimumHeight(parent.getMeasuredHeight() / 3);
+        categoryImageView.setMaxHeight(parent.getMeasuredHeight() / 3);
         return new CategoryViewHolder(categoryView);
     }
 
@@ -53,6 +72,8 @@ public class CategoriesRecyclerViewAdapter extends RecyclerView.Adapter<Categori
         final String categoryName = data.get(position);
         holder.nameTextView.setText(categoryName);
 
+        //initCategoryIllustration(holder, position);
+
         final RecyclerView subcategoriesRecyclerView = (RecyclerView) holder.itemView.findViewById(R.id.category_list_cell_subcategories_recyclerview);
 
         subcategoriesRecyclerView.setVisibility(View.GONE);
@@ -60,7 +81,7 @@ public class CategoriesRecyclerViewAdapter extends RecyclerView.Adapter<Categori
 
         final RecyclerView categoriesRecyclerView = (RecyclerView) holder.itemView.findViewById(R.id.categories_fragment_recyclerview);
 
-        holder.itemView.findViewById(R.id.category_list_cell_textview).setOnClickListener(new View.OnClickListener() {
+        holder.itemView.findViewById(R.id.category_list_cell_illustration).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -102,12 +123,12 @@ public class CategoriesRecyclerViewAdapter extends RecyclerView.Adapter<Categori
 
     public class CategoryViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView categoryTextView;
+        private ImageView categoryIllustration;
         private TextView nameTextView;
 
         public CategoryViewHolder(View itemView) {
             super(itemView);
-            categoryTextView = (TextView) itemView.findViewById(R.id.category_list_cell_textview);
+            categoryIllustration = (ImageView) itemView.findViewById(R.id.category_list_cell_illustration);
             nameTextView = (TextView) itemView.findViewById(R.id.category_name_textview);
         }
     }
