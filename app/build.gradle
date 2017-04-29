@@ -40,7 +40,6 @@ dependencies {
     compile 'com.jpeng:JPTabBar:1.2.3'
     compile 'com.pavelsikun:materialdesignicons:1.0'
     compile 'com.github.lsjwzh.RecyclerViewPager:lib:v1.1.2'
-
-    compile 'me.relex:circleindicator:1.2.2@aar'
+    compile 'com.flyco.pageindicator:FlycoPageIndicator_Lib:1.0.0@aar'
 
 }
