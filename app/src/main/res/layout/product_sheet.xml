@@ -33,7 +33,7 @@
                 android:id="@+id/product_sheet_essential_relativelayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingBottom="10dp">
+                android:paddingBottom="5dp">
 
                 <LinearLayout
                     android:id="@+id/product_sheet_viewpager_linearlayout"
@@ -47,16 +47,17 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"/>
 
-                <!--    <com.lsjwzh.widget.recyclerviewpager.RecyclerViewPager
-                        android:id="@+id/product_sheet_viewpager"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        app:rvp_triggerOffset="0.1"
-                        app:rvp_singlePageFling="true"
-                        android:clipToPadding="false"
-                        android:nestedScrollingEnabled="false"/>!-->
-
                 </LinearLayout>
+
+                <com.flyco.pageindicator.indicator.RoundCornerIndicaor
+                    android:id="@+id/product_sheet_viewpager_indicator"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/product_sheet_viewpager_linearlayout"
+                    android:layout_centerHorizontal="true"
+                    app:rci_unselectColor="@color/colorUnselectedIndicator"
+                    app:rci_selectColor="@color/colorAccent"
+                    />
 
                 <TextView
                     android:id="@+id/product_sheet_price"
@@ -69,7 +70,7 @@
                     android:textSize="20dp"
                     android:paddingLeft="24dp"
                     android:paddingBottom="5dp"
-                    android:layout_below="@id/product_sheet_viewpager_linearlayout"
+                    android:layout_below="@id/product_sheet_viewpager_indicator"
                     android:text="19€99"/>
 
                 <TextView
