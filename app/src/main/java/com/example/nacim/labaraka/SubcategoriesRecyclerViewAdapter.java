@@ -42,8 +42,6 @@ public class SubcategoriesRecyclerViewAdapter extends RecyclerView.Adapter<Subca
             this.data = new ArrayList<>(Arrays.asList(context.getResources().getStringArray(R.array.BOY)));
         else if (category == Constants.HOME_CATEGORY_ID)
             this.data = new ArrayList<>(Arrays.asList(context.getResources().getStringArray(R.array.HOME)));
-
-        Log.d("AAA", "--------->   " + data);
     }
 
     @Override
