@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <RelativeLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/size_guide_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="24dp"
+            android:padding="24dp"
+            android:textSize="17dp"
+            android:textColor="@color/colorBlack"
+            android:textStyle="bold"
+            android:text="SIZE GUIDE"/>
+
+        <TextView
+            android:id="@+id/size_guide_bullet1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/size_guide_title"
+            android:layout_marginLeft="30dp"
+            android:textStyle="bold"
+            android:textColor="@color/colorBlack"
+            android:text="\u25CF  "/>
+
+        <TextView
+            android:id="@+id/size_guide_textview_bullet1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/size_guide_bullet1"
+            android:layout_alignTop="@id/size_guide_bullet1"
+            android:layout_marginRight="30dp"
+            android:text="Ce guide des tailles correspond au fournisseur du produit qui vous interesse."/>
+
+        <TextView
+            android:id="@+id/size_guide_bullet2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/size_guide_textview_bullet1"
+            android:layout_alignLeft="@id/size_guide_bullet1"
+            android:layout_marginTop="10dp"
+            android:textStyle="bold"
+            android:textColor="@color/colorBlack"
+            android:text="\u25CF  "/>
+
+        <TextView
+            android:id="@+id/size_guide_textview_bullet2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/size_guide_bullet2"
+            android:layout_alignTop="@id/size_guide_bullet2"
+            android:layout_marginRight="30dp"
+            android:text="Chaque fournisseur propose des tailles différentes, chaque produit a donc sa fiche technique correspondante pour vous aider dans votre choix."/>
+
+        <ImageView
+            android:layout_width="300dp"
+            android:layout_height="500dp"
+            android:layout_below="@id/size_guide_textview_bullet2"
+            android:layout_gravity="center"
+            android:layout_centerHorizontal="true"
+            android:scaleType="fitCenter"
+            android:src="@drawable/size_guide"/>
+
+    </RelativeLayout>
+</ScrollView>

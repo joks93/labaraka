@@ -13,9 +13,9 @@ import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import com.flyco.pageindicator.indicator.RoundCornerIndicaor;
 import com.piotrek.customspinner.CustomSpinner;
 import java.util.ArrayList;
@@ -107,6 +107,9 @@ public class ProductSheetActivity extends AppCompatActivity {
 
         AssociatedProductsRecyclerViewAdapter associatedProductsRecyclerViewAdapter = new AssociatedProductsRecyclerViewAdapter(getBaseContext(), associatedProductsLayoutManager, productsAssociated);
         associatedProductsRecyclerView.setAdapter(associatedProductsRecyclerViewAdapter);
+
+        /* INIT TEXTVIEW CLICKABLE */
+        initOnclickListenersTextview();
     }
 
     @Override
@@ -157,6 +160,16 @@ public class ProductSheetActivity extends AppCompatActivity {
             }
         }
         return true;
+    }
+
+    private void initOnclickListenersTextview() {
+        TextView sizeguideButton = (TextView) findViewById(R.id.product_sheet_sizeguide);
+        sizeguideButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getBaseContext(), SizeGuideActivity.class));
+            }
+        });
     }
 
     private static class ImagesViewPagerAdapter extends FragmentStatePagerAdapter {
