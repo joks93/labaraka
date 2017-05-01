@@ -10,6 +10,7 @@
     <string name="returns_button">RETURNS</string>
     <string name="share_button">SHARE</string>
     <string name="see_also">YOU MIGHT ALSO LIKE</string>
+    <string name="items_indicator">items</string>
 
     /*LIST APPBAR ICONS ACTIONS*/
     <string name="action_shoppingbasket">Go to basket</string>

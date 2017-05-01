@@ -7,11 +7,15 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.LinearLayout;
+import android.widget.TextView;
+
 import com.flyco.pageindicator.indicator.RoundCornerIndicaor;
 import com.piotrek.customspinner.CustomSpinner;
 import java.util.ArrayList;
@@ -85,6 +89,24 @@ public class ProductSheetActivity extends AppCompatActivity {
         CustomSpinner colorSpinner = (CustomSpinner) findViewById(R.id.product_sheet_color_spinner);
         colorSpinner.initializeStringValues(colors.toArray(new String[0]), "BLUE");
         colorSpinner.setEnabled(false);
+
+        /* ASSOCIATED PRODUCT RECYCLER VIEW */
+        RecyclerView associatedProductsRecyclerView = (RecyclerView) findViewById(R.id.product_sheet_associated_product_recycler_view);
+        LinearLayoutManager associatedProductsLayoutManager = new LinearLayoutManager(getBaseContext(), LinearLayoutManager.HORIZONTAL, false);
+        associatedProductsRecyclerView.setLayoutManager(associatedProductsLayoutManager);
+
+        ArrayList<String> productsAssociated = new ArrayList<>();
+        productsAssociated.add("Associated 1");
+        productsAssociated.add("Associated 2");
+        productsAssociated.add("Associated 3");
+        productsAssociated.add("Associated 4");
+        productsAssociated.add("Associated 5");
+        productsAssociated.add("Associated 6");
+
+        ((TextView) findViewById(R.id.product_sheet_associated_product_counter)).setText(Integer.toString(productsAssociated.size()) + " ");
+
+        AssociatedProductsRecyclerViewAdapter associatedProductsRecyclerViewAdapter = new AssociatedProductsRecyclerViewAdapter(getBaseContext(), associatedProductsLayoutManager, productsAssociated);
+        associatedProductsRecyclerView.setAdapter(associatedProductsRecyclerViewAdapter);
     }
 
     @Override

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp">
+    
+    <ImageView
+        android:id="@+id/product_sheet_associated_product_image"
+        android:layout_width="160dp"
+        android:layout_height="220dp"/>
+
+    <TextView
+        android:id="@+id/product_sheet_associated_product_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:typeface="sans"
+        android:textStyle="bold"
+        android:textAllCaps="true"
+        android:textColor="@color/colorBlack"
+        android:textSize="16dp"
+        android:paddingBottom="5dp"
+        android:layout_below="@id/product_sheet_viewpager_indicator"
+        android:text="14€99"/>
+
+
+    <TextView
+        android:id="@+id/product_sheet_associated_product_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:maxLines="2"
+        android:text="Other product"/>
+    
+</LinearLayout>
