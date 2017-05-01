@@ -7,16 +7,9 @@
     android:layout_width="match_parent"
     android:orientation="horizontal">
 
-    <TextView
-        android:id="@+id/products_title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="PRODUCTS"/>
-
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/products_recycler_view"
-        android:layout_below="@id/products_title"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+    android:id="@+id/products_recycler_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" />
 
 </RelativeLayout>
