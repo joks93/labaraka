@@ -24,6 +24,11 @@
     <string name="tab_login">Se connecter</string>
     <string name="tab_account">Mon compte</string>
 
+    /*LIST ACCOUNT CONNECTION*/
+    <string name="account_connection_email">Addresse e-mail</string>
+    <string name="account_connection_password">Mot de passe</string>
+    <string name="account_connection_button">Connexion</string>
+
 
     /*LIST CATEGORIES SUPPORTED*/
     <string-array name="CATEGORIES">

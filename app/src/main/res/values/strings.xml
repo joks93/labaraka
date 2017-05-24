@@ -24,6 +24,11 @@
     <string name="tab_login">Log in</string>
     <string name="tab_account">My account</string>
 
+    /*LIST ACCOUNT CONNECTION*/
+    <string name="account_connection_email">E-mail adress</string>
+    <string name="account_connection_password">Password</string>
+    <string name="account_connection_button">Connection</string>
+
     /*LIST CATEGORIES SUPPORTED*/
     <string-array name="CATEGORIES">
         <item>WOMAN</item>

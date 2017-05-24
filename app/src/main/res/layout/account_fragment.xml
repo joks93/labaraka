@@ -1,15 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/baske_fragment_linear_layout"
+    android:id="@+id/account_fragment_linearlayout"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/basket_fragment_textview"
+        android:id="@+id/account_fragment_connection_email_textview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="ACCOUNT"/>
+        android:text="@string/account_connection_email"/>
 
+    <EditText
+        android:id="@+id/account_fragment_connection_email_edittext"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/account_fragment_connection_password_textview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/account_connection_password"/>
+
+    <EditText
+        android:id="@+id/account_fragment_connection_password_edittext"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"/>
+
+    <Button
+        android:id="@+id/account_fragment_connection_button"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/colorAccent"
+        android:textColor="@color/colorWhite"
+        android:textStyle="bold"
+        android:layout_marginLeft="24dp"
+        android:layout_marginRight="24dp"
+        android:text="@string/account_connection_button"/>
 </LinearLayout>
