@@ -14,7 +14,16 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.example.nacim.labaraka.API.UserAccountAPI;
+
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * Created by nacim on 17/04/17.
@@ -42,8 +51,10 @@ public class AccountFragment extends Fragment {
         connectionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (is_correct_password())
+                if (check_input_format()) {
                     Log.d("CONNECTION", "correct structure");
+                    prestashop();
+                }
                 else
                     Log.d("CONNECTION", "wrong structure");
             }
@@ -51,18 +62,44 @@ public class AccountFragment extends Fragment {
         return root;
     }
 
-    private boolean is_correct_input()
-    {
-        return is_correct_email() && is_correct_password();
+    private boolean check_input_format() {
+        return check_email_format() && check_password_format();
     }
 
-    private boolean is_correct_email()
-    {
-        return true;
+    private boolean check_email_format() {
+        String pattern = "^[a-z0-9!#$%&\\'*+\\/=?^`{}|~_-]+[.a-z0-9!#$%&\\'*+\\/=?^`{}|~_-]*@[a-z0-9]+[._a-z0-9-]*\\.[a-z0-9]+$";
+        Pattern r = Pattern.compile(pattern, Pattern.CASE_INSENSITIVE);
+        Matcher m = r.matcher(emailEditText.getText().toString());
+        return m.find();
     }
 
-    private boolean is_correct_password()
-    {
-        return passwordEditText.getText().toString().length() >= 5;
+    private boolean check_password_format() {
+        String pattern = "^[.a-zA-Z_0-9-!@#$%\\^&*()]{5,32}$";
+        Pattern r = Pattern.compile(pattern);
+        Matcher m = r.matcher(passwordEditText.getText().toString());
+        return m.find();
+    }
+
+    private void prestashop() {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://10.0.2.2:80/labaraka/prestashop/android_api/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        UserAccountAPI service = retrofit.create(UserAccountAPI.class);
+        service.signInUser("test@gmail.com", "123456")
+                .enqueue(new Callback<Boolean>() {
+                    @Override
+                    public void onResponse(Call<Boolean> call, Response<Boolean> response) {
+                        if (response.isSuccessful())
+                            Log.d("RETROFIT", "SUCCESSFULL -->  " + response.body().toString());
+                        else
+                            Log.d("RETROFIT", "FAILURE -->  " + response.errorBody());
+                    }
+
+                    @Override
+                    public void onFailure(Call<Boolean> call, Throwable t) {
+                        Log.d("RETROFIT", "FAILED -->  " + t.getLocalizedMessage());
+                    }
+                });
     }
 }
