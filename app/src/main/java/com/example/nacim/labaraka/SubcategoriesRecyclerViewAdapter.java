@@ -3,7 +3,6 @@ package com.example.nacim.labaraka;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,27 +19,27 @@ public class SubcategoriesRecyclerViewAdapter extends RecyclerView.Adapter<Subca
     private Intent intent;
     private Context context;
     private LayoutInflater layoutInflater;
-    private int category;
+    private Category parent;
     private ArrayList<String> data;
 
-    public SubcategoriesRecyclerViewAdapter(Context context, int category, Intent intent) {
+    public SubcategoriesRecyclerViewAdapter(Context context, Category parent, Intent intent) {
         this.intent = intent;
         this.context = context;
         this.layoutInflater = LayoutInflater.from(context);
-        this.category = category;
+        this.parent = parent;
         initSubcategoriesData();
     }
 
     private void initSubcategoriesData() {
-        if (category == Constants.WOMAN_CATEGORY_ID)
+        if (parent.getId() == Constants.WOMAN_CATEGORY_ID)
             this.data = new ArrayList<>(Arrays.asList(context.getResources().getStringArray(R.array.WOMAN)));
-        else if (category == Constants.MAN_CATEGORY_ID)
+        else if (parent.getId() == Constants.MAN_CATEGORY_ID)
             this.data = new ArrayList<>(Arrays.asList(context.getResources().getStringArray(R.array.MAN)));
-        else if (category == Constants.GIRL_CATEGORY_ID)
+        else if (parent.getId() == Constants.GIRL_CATEGORY_ID)
             this.data = new ArrayList<>(Arrays.asList(context.getResources().getStringArray(R.array.GIRL)));
-        else if (category == Constants.BOY_CATEGORY_ID)
+        else if (parent.getId() == Constants.BOY_CATEGORY_ID)
             this.data = new ArrayList<>(Arrays.asList(context.getResources().getStringArray(R.array.BOY)));
-        else if (category == Constants.HOME_CATEGORY_ID)
+        else if (parent.getId() == Constants.HOME_CATEGORY_ID)
             this.data = new ArrayList<>(Arrays.asList(context.getResources().getStringArray(R.array.HOME)));
     }
 

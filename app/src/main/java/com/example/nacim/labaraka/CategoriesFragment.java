@@ -14,6 +14,7 @@ import com.example.nacim.labaraka.API.CategoryAPI;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import retrofit2.Call;
@@ -28,6 +29,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class CategoriesFragment extends Fragment {
 
+    public static ArrayList<Category> rootCategories = new ArrayList<>();
+
     private RecyclerView recyclerView;
     private RecyclerView.Adapter recyclerViewAdapter;
     private LinearLayoutManager layoutManager;
@@ -35,8 +38,6 @@ public class CategoriesFragment extends Fragment {
     private Gson gson;
     private Retrofit retrofit;
     private CategoryAPI service;
-
-    private ArrayList<Category> rootCategories;
 
     public CategoriesFragment() {
         super();
@@ -50,6 +51,9 @@ public class CategoriesFragment extends Fragment {
         layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
 
+        recyclerViewAdapter = new CategoriesRecyclerViewAdapter(getContext(), layoutManager);
+        recyclerView.setAdapter(recyclerViewAdapter);
+
         gson = new GsonBuilder().setLenient().create();
         retrofit = new Retrofit.Builder()
                 .baseUrl("http://10.0.2.2:80/labaraka/android_api/")
@@ -57,35 +61,38 @@ public class CategoriesFragment extends Fragment {
                 .build();
         service = retrofit.create(CategoryAPI.class);
 
-        recyclerViewAdapter = new CategoriesRecyclerViewAdapter(getContext(), layoutManager);
-        recyclerView.setAdapter(recyclerViewAdapter);
-
+        updateRootCategories();
         return viewRoot;
     }
 
-    ArrayList<Category> getRootCategories() {
-        if (rootCategories != null)
-            return rootCategories;
+    private void updateRootCategories() {
+        Log.d("UPDATING", "BEGIN");
 
-        service.extractRootCategories().enqueue(new Callback<ArrayList<Category>>() {
+        if (! rootCategories.isEmpty())
+            return;
+
+        service.extractSubCategoriesOf(Constants.ACCUEIL_CATEGORY_ID).enqueue(new Callback<ArrayList<Category>>() {
             @Override
             public void onResponse(Call<ArrayList<Category>> call, Response<ArrayList<Category>> response){
                 if (response.isSuccessful()) {
-                    for (Category category : response.body()) {
-                        Log.d("RETROFIT", "SUCCESSFUL --> ID = " + category.getId() + " NAME = " + category.getName() + " " + category.getChildren());
-                    }
-                    rootCategories = response.body();
+                        for (Category category : response.body()) {
+                            Log.d("RETROFIT", "SUCCESSFUL --> ID_PARENT = " + category.getId_parent() + " ID = " + category.getId() + " NAME = " + category.getName() + " " + category.getChildren());
+                        }
+                        rootCategories.clear();
+                        rootCategories.addAll(response.body());
+                        recyclerView.setAdapter(recyclerViewAdapter);
                 }
-                else
+                else {
+                    rootCategories.clear();
                     Log.d("RETROFIT", "FAILURE -->  " + response.errorBody());
+                }
             }
 
             @Override
             public void onFailure(Call<ArrayList<Category>> call, Throwable t) {
                 Log.d("RETROFIT", "FAILED -->  " + t.getLocalizedMessage());
+                rootCategories.clear();
             }
         });
-
-        return rootCategories;
     }
 }

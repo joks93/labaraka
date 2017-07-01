@@ -26,27 +26,22 @@ public class CategoriesRecyclerViewAdapter extends RecyclerView.Adapter<Categori
     private Intent intent;
     private Context context;
     private LayoutInflater layoutInflater;
-    private ArrayList<String> data;
-    private Map<String, Boolean> subcategoriesClicked;
+    private Map<Category, Boolean> subcategoriesClicked;
     public int currentOpen = -1;
-
-
     private LinearLayoutManager linearLayoutManager;
 
     public CategoriesRecyclerViewAdapter(Context context, LinearLayoutManager layoutManager) {
         this.intent = new Intent(context, ScreenSlidePagerActivity.class);
         this.context = context;
         this.layoutInflater = LayoutInflater.from(context);
-        this.data = new ArrayList<>(Arrays.asList(context.getResources().getStringArray(R.array.CATEGORIES)));
         this.subcategoriesClicked = new HashMap<>();
-        for (String category : data)
+        for (Category category : CategoriesFragment.rootCategories)
             subcategoriesClicked.put(category, false);
 
         this.linearLayoutManager = layoutManager;
     }
 
-
-    private void initCategoryIllustration(CategoryViewHolder holder,  int idCategory) {
+    private void initCategoryIllustration(CategoryViewHolder holder, int idCategory) {
         if (idCategory == Constants.WOMAN_CATEGORY_ID)
             holder.categoryIllustration.setImageDrawable(ResourcesCompat.getDrawable(context.getResources(), R.drawable.jupe, null));
         else if (idCategory == Constants.MAN_CATEGORY_ID)
@@ -71,15 +66,15 @@ public class CategoriesRecyclerViewAdapter extends RecyclerView.Adapter<Categori
 
     @Override
     public void onBindViewHolder(final CategoryViewHolder holder, final int position) {
-        final String categoryName = data.get(position);
-        holder.nameTextView.setText(categoryName);
+        final String categoryName = CategoriesFragment.rootCategories.get(position).getName();
+        holder.nameTextView.setText(categoryName.toUpperCase());
 
         //initCategoryIllustration(holder, position);
 
         final RecyclerView subcategoriesRecyclerView = (RecyclerView) holder.itemView.findViewById(R.id.category_list_cell_subcategories_recyclerview);
 
         subcategoriesRecyclerView.setVisibility(View.GONE);
-        subcategoriesClicked.put(holder.nameTextView.getText().toString(), Boolean.FALSE);
+        subcategoriesClicked.put(CategoriesFragment.rootCategories.get(position), Boolean.FALSE);
 
         final RecyclerView categoriesRecyclerView = (RecyclerView) holder.itemView.findViewById(R.id.categories_fragment_recyclerview);
 
@@ -87,7 +82,7 @@ public class CategoriesRecyclerViewAdapter extends RecyclerView.Adapter<Categori
             @Override
             public void onClick(View v) {
 
-                if (subcategoriesClicked.get(holder.nameTextView.getText().toString())) {
+                if (subcategoriesClicked.get(CategoriesFragment.rootCategories.get(position))) {
                     //Close subcategories
                     subcategoriesRecyclerView.setVisibility(View.GONE);
                     currentOpen = -1;
@@ -96,7 +91,7 @@ public class CategoriesRecyclerViewAdapter extends RecyclerView.Adapter<Categori
                     //Open subcategories
                     RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(context);
                     subcategoriesRecyclerView.setLayoutManager(layoutManager);
-                    subcategoriesRecyclerView.setAdapter(new SubcategoriesRecyclerViewAdapter(context, position, intent));
+                    subcategoriesRecyclerView.setAdapter(new SubcategoriesRecyclerViewAdapter(context, CategoriesFragment.rootCategories.get(position), intent));
                     if (position == getItemCount() - 1) {
                         linearLayoutManager.scrollToPositionWithOffset(position, 0);
                         subcategoriesRecyclerView.setVisibility(View.VISIBLE);
@@ -113,14 +108,14 @@ public class CategoriesRecyclerViewAdapter extends RecyclerView.Adapter<Categori
                     }
                 }
 
-                subcategoriesClicked.put(holder.nameTextView.getText().toString(), ! subcategoriesClicked.get(categoryName));
+                subcategoriesClicked.put(CategoriesFragment.rootCategories.get(position), ! subcategoriesClicked.get(CategoriesFragment.rootCategories.get(position)));
             }
         });
     }
 
     @Override
     public int getItemCount() {
-        return data.size();
+        return CategoriesFragment.rootCategories.size();
     }
 
     public class CategoryViewHolder extends RecyclerView.ViewHolder {
