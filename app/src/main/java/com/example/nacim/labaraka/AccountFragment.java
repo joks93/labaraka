@@ -1,24 +1,21 @@
 package com.example.nacim.labaraka;
 
-import android.media.MediaCodec;
 import android.os.Bundle;
-import android.os.Debug;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import com.example.nacim.labaraka.API.CategoryAPI;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
-import com.example.nacim.labaraka.API.UserAccountAPI;
-
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -51,14 +48,10 @@ public class AccountFragment extends Fragment {
         connectionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (check_input_format()) {
-                    Log.d("CONNECTION", "correct structure");
-                    prestashop();
-                }
-                else
-                    Log.d("CONNECTION", "wrong structure");
+                    //prestashop();
             }
         });
+
         return root;
     }
 
@@ -78,28 +71,5 @@ public class AccountFragment extends Fragment {
         Pattern r = Pattern.compile(pattern);
         Matcher m = r.matcher(passwordEditText.getText().toString());
         return m.find();
-    }
-
-    private void prestashop() {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://10.0.2.2:80/labaraka/prestashop/android_api/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        UserAccountAPI service = retrofit.create(UserAccountAPI.class);
-        service.signInUser("test@gmail.com", "123456")
-                .enqueue(new Callback<Boolean>() {
-                    @Override
-                    public void onResponse(Call<Boolean> call, Response<Boolean> response) {
-                        if (response.isSuccessful())
-                            Log.d("RETROFIT", "SUCCESSFULL -->  " + response.body().toString());
-                        else
-                            Log.d("RETROFIT", "FAILURE -->  " + response.errorBody());
-                    }
-
-                    @Override
-                    public void onFailure(Call<Boolean> call, Throwable t) {
-                        Log.d("RETROFIT", "FAILED -->  " + t.getLocalizedMessage());
-                    }
-                });
     }
 }
