@@ -66,8 +66,6 @@ public class CategoriesFragment extends Fragment {
     }
 
     private void updateRootCategories() {
-        Log.d("UPDATING", "BEGIN");
-
         if (! rootCategories.isEmpty())
             return;
 
@@ -76,6 +74,7 @@ public class CategoriesFragment extends Fragment {
             public void onResponse(Call<ArrayList<Category>> call, Response<ArrayList<Category>> response){
                 if (response.isSuccessful()) {
                         for (Category category : response.body()) {
+                            CategoriesRecyclerViewAdapter.subcategories.put(category.getId(), new ArrayList<Category>());
                             Log.d("RETROFIT", "SUCCESSFUL --> ID_PARENT = " + category.getId_parent() + " ID = " + category.getId() + " NAME = " + category.getName() + " " + category.getChildren());
                         }
                         rootCategories.clear();

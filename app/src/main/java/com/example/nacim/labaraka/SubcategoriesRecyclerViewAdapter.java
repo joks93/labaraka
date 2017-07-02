@@ -20,27 +20,12 @@ public class SubcategoriesRecyclerViewAdapter extends RecyclerView.Adapter<Subca
     private Context context;
     private LayoutInflater layoutInflater;
     private Category parent;
-    private ArrayList<String> data;
 
     public SubcategoriesRecyclerViewAdapter(Context context, Category parent, Intent intent) {
         this.intent = intent;
         this.context = context;
         this.layoutInflater = LayoutInflater.from(context);
         this.parent = parent;
-        initSubcategoriesData();
-    }
-
-    private void initSubcategoriesData() {
-        if (parent.getId() == Constants.WOMAN_CATEGORY_ID)
-            this.data = new ArrayList<>(Arrays.asList(context.getResources().getStringArray(R.array.WOMAN)));
-        else if (parent.getId() == Constants.MAN_CATEGORY_ID)
-            this.data = new ArrayList<>(Arrays.asList(context.getResources().getStringArray(R.array.MAN)));
-        else if (parent.getId() == Constants.GIRL_CATEGORY_ID)
-            this.data = new ArrayList<>(Arrays.asList(context.getResources().getStringArray(R.array.GIRL)));
-        else if (parent.getId() == Constants.BOY_CATEGORY_ID)
-            this.data = new ArrayList<>(Arrays.asList(context.getResources().getStringArray(R.array.BOY)));
-        else if (parent.getId() == Constants.HOME_CATEGORY_ID)
-            this.data = new ArrayList<>(Arrays.asList(context.getResources().getStringArray(R.array.HOME)));
     }
 
     @Override
@@ -51,7 +36,7 @@ public class SubcategoriesRecyclerViewAdapter extends RecyclerView.Adapter<Subca
 
     @Override
     public void onBindViewHolder(SubcategoryViewHolder holder, int position) {
-        holder.nameTextView.setText(data.get(position));
+        holder.nameTextView.setText(CategoriesRecyclerViewAdapter.subcategories.get(parent.getId()).get(position).getName().toUpperCase());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -63,7 +48,7 @@ public class SubcategoriesRecyclerViewAdapter extends RecyclerView.Adapter<Subca
 
     @Override
     public int getItemCount() {
-        return data.size();
+        return CategoriesRecyclerViewAdapter.subcategories.get(parent.getId()).size();
     }
 
     public class SubcategoryViewHolder extends RecyclerView.ViewHolder {
