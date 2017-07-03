@@ -5,7 +5,6 @@ import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,8 +17,10 @@ import java.util.ArrayList;
  */
 
 public class ProductsFragment extends Fragment {
+    public static ArrayList<Product> catalogProducts = new ArrayList<>();
 
     private static final int NUM_COLUMNS = 2;
+
     private RecyclerView recyclerView;
     private RecyclerView.Adapter recyclerViewAdapter;
     private RecyclerView.LayoutManager layoutManager;
@@ -59,7 +60,7 @@ public class ProductsFragment extends Fragment {
 
         recyclerViewAdapter = new ProductsRecyclerViewAdapter(getContext(), data);
         recyclerView.setAdapter(recyclerViewAdapter);
-
+        Transitor.updateCatalogProducts(getArguments().getInt("KEY_PRODUCTS_OF", 2), recyclerView, recyclerViewAdapter);
         return rootView;
     }
 
@@ -83,4 +84,6 @@ public class ProductsFragment extends Fragment {
             recyclerView.getLayoutManager().onRestoreInstanceState(listSate);
         }
     }
+
+
 }

@@ -36,11 +36,13 @@ public class SubcategoriesRecyclerViewAdapter extends RecyclerView.Adapter<Subca
 
     @Override
     public void onBindViewHolder(SubcategoryViewHolder holder, int position) {
-        holder.nameTextView.setText(CategoriesRecyclerViewAdapter.subcategories.get(parent.getId()).get(position).getName().toUpperCase());
+        final Category category = CategoriesRecyclerViewAdapter.subcategories.get(parent.getId()).get(position);
+        holder.nameTextView.setText(category.getName().toUpperCase());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 intent.putExtra("KEY_INIT_PAGE", Constants.PRODUCTS_FRAGMENT_ID);
+                intent.putExtra("KEY_CATEGORY_ID", category.getId());
                 context.startActivity(intent);
             }
         });

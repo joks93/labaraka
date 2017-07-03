@@ -38,7 +38,7 @@ public class ScreenSlidePagerActivity extends FragmentActivity {
         INIT_PAGE = getIntent().getIntExtra("KEY_INIT_PAGE", Constants.PRODUCTS_FRAGMENT_ID);
 
         viewPager = (ViewPager) findViewById(R.id.main_viewpager);
-        pagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
+        pagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager(), getIntent().getIntExtra("KEY_PRODUCTS_OF", Constants.ACCUEIL_CATEGORY_ID));
         viewPager.setAdapter(pagerAdapter);
         viewPager.setCurrentItem(INIT_PAGE); //Set initial fragment as the middle one
 
@@ -49,23 +49,27 @@ public class ScreenSlidePagerActivity extends FragmentActivity {
     }
 
     private static class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter {
-        public ScreenSlidePagerAdapter(FragmentManager fm) {
+        private int INIT_PRODUCTS_OF;
+        public ScreenSlidePagerAdapter(FragmentManager fm, int INIT_PRODUCTS_OF) {
             super(fm);
+            this.INIT_PRODUCTS_OF = INIT_PRODUCTS_OF;
         }
 
         @Override
         public Fragment getItem(int position) {
+            Bundle args = new Bundle();
             switch (position) {
                 case Constants.CATEGORIES__FRAGMENT_ID:
                     return new CategoriesFragment();
-                case Constants.PRODUCTS_FRAGMENT_ID:
-                    return new ProductsFragment();
                 case Constants.BASKET_FRAGMENT_ID:
                     return new BasketFragment();
                 case Constants.ACCOUNT_FRAGMENT_ID:
                     return new AccountFragment();
                 default:
-                    return new ProductsFragment();
+                    ProductsFragment productsFragment = new ProductsFragment();
+                    args.putInt("KEY_PRODUCTS_OF", INIT_PRODUCTS_OF);
+                    productsFragment.setArguments(args);
+                    return productsFragment;
             }
         }
 

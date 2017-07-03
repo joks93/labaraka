@@ -35,10 +35,6 @@ public class CategoriesFragment extends Fragment {
     private RecyclerView.Adapter recyclerViewAdapter;
     private LinearLayoutManager layoutManager;
 
-    private Gson gson;
-    private Retrofit retrofit;
-    private CategoryAPI service;
-
     public CategoriesFragment() {
         super();
     }
@@ -54,44 +50,9 @@ public class CategoriesFragment extends Fragment {
         recyclerViewAdapter = new CategoriesRecyclerViewAdapter(getContext(), layoutManager);
         recyclerView.setAdapter(recyclerViewAdapter);
 
-        gson = new GsonBuilder().setLenient().create();
-        retrofit = new Retrofit.Builder()
-                .baseUrl("http://10.0.2.2:80/labaraka/android_api/")
-                .addConverterFactory(GsonConverterFactory.create(gson))
-                .build();
-        service = retrofit.create(CategoryAPI.class);
+        Transitor.updateRootCategories(Constants.ACCUEIL_CATEGORY_ID, recyclerView, recyclerViewAdapter);
 
-        updateRootCategories();
         return viewRoot;
     }
 
-    private void updateRootCategories() {
-        if (! rootCategories.isEmpty())
-            return;
-
-        service.extractSubCategoriesOf(Constants.ACCUEIL_CATEGORY_ID).enqueue(new Callback<ArrayList<Category>>() {
-            @Override
-            public void onResponse(Call<ArrayList<Category>> call, Response<ArrayList<Category>> response){
-                if (response.isSuccessful()) {
-                        for (Category category : response.body()) {
-                            CategoriesRecyclerViewAdapter.subcategories.put(category.getId(), new ArrayList<Category>());
-                            Log.d("RETROFIT", "SUCCESSFUL --> ID_PARENT = " + category.getId_parent() + " ID = " + category.getId() + " NAME = " + category.getName() + " " + category.getChildren());
-                        }
-                        rootCategories.clear();
-                        rootCategories.addAll(response.body());
-                        recyclerView.setAdapter(recyclerViewAdapter);
-                }
-                else {
-                    rootCategories.clear();
-                    Log.d("RETROFIT", "FAILURE -->  " + response.errorBody());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ArrayList<Category>> call, Throwable t) {
-                Log.d("RETROFIT", "FAILED -->  " + t.getLocalizedMessage());
-                rootCategories.clear();
-            }
-        });
-    }
 }

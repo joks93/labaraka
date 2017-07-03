@@ -18,4 +18,6 @@ public class Constants {
     public final static int BOY_CATEGORY_ID = 5;
     public final static int HOME_CATEGORY_ID = 6;
 
+    public final static String urlAPI = "http://10.0.2.2:80/labaraka/android_api/";
+
 }
