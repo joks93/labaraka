@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +21,7 @@ public class ProductsFragment extends Fragment {
     public static ArrayList<Product> catalogProducts = new ArrayList<>();
 
     private static final int NUM_COLUMNS = 2;
+    private int product_of;
 
     private RecyclerView recyclerView;
     private RecyclerView.Adapter recyclerViewAdapter;
@@ -35,53 +37,49 @@ public class ProductsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.products_fragment, container, false);
+        product_of = getArguments().getInt("KEY_PRODUCTS_OF");
+        Log.d("ON CREATE VIEW", product_of + "");
+
         recyclerView = (RecyclerView) rootView.findViewById(R.id.products_recycler_view);
         layoutManager = new GridLayoutManager(getContext(), NUM_COLUMNS);
         recyclerView.setLayoutManager(layoutManager);
 
-        ArrayList<String> data = new ArrayList<>();
-        data.add("A");
-        data.add("B");
-        data.add("C");
-        data.add("D");
-        data.add("E");
-        data.add("F");
-        data.add("G");
-        data.add("H");
-        data.add("I");
-        data.add("K");
-        data.add("L");
-        data.add("M");
-        data.add("N");
-        data.add("O");
-        data.add("P");
-        data.add("Q");
-        data.add("R");
-
-        recyclerViewAdapter = new ProductsRecyclerViewAdapter(getContext(), data);
+        recyclerViewAdapter = new ProductsRecyclerViewAdapter(getContext(), product_of);
         recyclerView.setAdapter(recyclerViewAdapter);
-        Transitor.updateCatalogProducts(getArguments().getInt("KEY_PRODUCTS_OF", 2), recyclerView, recyclerViewAdapter);
         return rootView;
     }
 
     @Override
     public void onPause() {
         super.onPause();
-
         //Save recyclerView state
         bundleRecycleViewState = new Bundle();
         Parcelable listState = recyclerView.getLayoutManager().onSaveInstanceState();
         bundleRecycleViewState.putParcelable("KEY_RECYCLER_STATE", listState);
+        bundleRecycleViewState.putInt("KEY_PRODUCTS_OF", product_of);
+        Log.d("ON PAUSE", product_of + "");
     }
 
     @Override
     public void onResume() {
         super.onResume();
-
         //Restore recyclerView state
         if (bundleRecycleViewState != null) {
-            Parcelable listSate = bundleRecycleViewState.getParcelable("KEY_RECYCLER_STATE");
-            recyclerView.getLayoutManager().onRestoreInstanceState(listSate);
+            int product_of_saved = bundleRecycleViewState.getInt("KEY_PRODUCTS_OF");
+            Log.d("ON RESUME", product_of_saved + "");
+            if (product_of_saved != product_of) {
+                Log.d("ON RESUME", "TRANSITOR");
+                catalogProducts.clear();
+                Transitor.updateCatalogProducts(product_of, recyclerView, recyclerViewAdapter);
+            }
+            else {
+                Parcelable listSate = bundleRecycleViewState.getParcelable("KEY_RECYCLER_STATE");
+                recyclerView.getLayoutManager().onRestoreInstanceState(listSate);
+            }
+        }
+        else {
+            catalogProducts.clear();
+            Transitor.updateCatalogProducts(product_of, recyclerView, recyclerViewAdapter);
         }
     }
 

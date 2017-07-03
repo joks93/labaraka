@@ -39,6 +39,7 @@ public class ProductSheetActivity extends AppCompatActivity {
 
         /* FURTHER INTENT */
         intent = new Intent(this, ScreenSlidePagerActivity.class);
+        intent.putExtra("KEY_PRODUCTS_OF", getIntent().getIntExtra("KEY_PRODUCTS_OF", Constants.ACCUEIL_CATEGORY_ID));
 
 
         /* TOOLBAR */

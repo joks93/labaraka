@@ -75,7 +75,7 @@ public class Transitor {
                     }
                     CategoriesRecyclerViewAdapter.subcategories.get(category.getId()).clear();
                     CategoriesRecyclerViewAdapter.subcategories.get(category.getId()).addAll(response.body());
-                    //subcategoriesRecyclerView.setAdapter(new SubcategoriesRecyclerViewAdapter(context, category, intent));
+                    subcategoriesRecyclerView.setAdapter(new SubcategoriesRecyclerViewAdapter(context, category, intent));
                 } else {
                     CategoriesRecyclerViewAdapter.subcategories.get(category.getId()).clear();
                     Log.d("RETROFIT", "FAILURE -->  " + response.errorBody());

@@ -42,7 +42,7 @@ public class SubcategoriesRecyclerViewAdapter extends RecyclerView.Adapter<Subca
             @Override
             public void onClick(View v) {
                 intent.putExtra("KEY_INIT_PAGE", Constants.PRODUCTS_FRAGMENT_ID);
-                intent.putExtra("KEY_CATEGORY_ID", category.getId());
+                intent.putExtra("KEY_PRODUCTS_OF", category.getId());
                 context.startActivity(intent);
             }
         });

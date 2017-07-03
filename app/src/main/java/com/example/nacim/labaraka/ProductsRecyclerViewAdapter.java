@@ -2,7 +2,10 @@ package com.example.nacim.labaraka;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,6 +13,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 
 /**
@@ -20,12 +27,13 @@ public class ProductsRecyclerViewAdapter extends RecyclerView.Adapter<ProductsRe
 
     private Context context;
     private LayoutInflater layoutInflater;
-    private ArrayList<String> data;
+    private Intent intent;
 
-    public ProductsRecyclerViewAdapter(Context context, ArrayList<String> data) {
+    public ProductsRecyclerViewAdapter(Context context, int product_of) {
         this.context = context;
         this.layoutInflater = LayoutInflater.from(context);
-        this.data = data;
+        this.intent = new Intent(context, ProductSheetActivity.class);
+        intent.putExtra("KEY_PRODUCTS_OF", product_of);
     }
 
     @Override
@@ -41,22 +49,24 @@ public class ProductsRecyclerViewAdapter extends RecyclerView.Adapter<ProductsRe
 
     @Override
     public void onBindViewHolder(final ProductViewHolder holder, final int position) {
+        Product product = ProductsFragment.catalogProducts.get(position);
+
         holder.productImageView.setImageDrawable(ResourcesCompat.getDrawable(context.getResources(), R.drawable.jupe, null));
-        holder.nameTextView.setText("Mini jupe short à fleur");
-        //holder.productTextView.setBackgroundColor(context.getColor(R.color.colorAccent));
-        /* DATA MANAGER */
+        holder.nameTextView.setText(product.getName());
+        holder.priceTextView.setText(String.valueOf(product.getPriceHT()));
+
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //Product sheet information -> new activity
-                context.startActivity(new Intent(context, ProductSheetActivity.class));
+                context.startActivity(intent);
             }
         });
     }
 
     @Override
     public int getItemCount() {
-        return data.size();
+        return ProductsFragment.catalogProducts.size();
     }
 
 
