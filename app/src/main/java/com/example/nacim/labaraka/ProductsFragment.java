@@ -70,7 +70,7 @@ public class ProductsFragment extends Fragment {
             if (product_of_saved != product_of) {
                 Log.d("ON RESUME", "TRANSITOR");
                 catalogProducts.clear();
-                Transitor.updateCatalogProducts(product_of, recyclerView, recyclerViewAdapter);
+                Transitor.updateCatalogProducts(getContext(), product_of, recyclerView, recyclerViewAdapter);
             }
             else {
                 Parcelable listSate = bundleRecycleViewState.getParcelable("KEY_RECYCLER_STATE");
@@ -79,7 +79,7 @@ public class ProductsFragment extends Fragment {
         }
         else {
             catalogProducts.clear();
-            Transitor.updateCatalogProducts(product_of, recyclerView, recyclerViewAdapter);
+            Transitor.updateCatalogProducts(getContext(), product_of, recyclerView, recyclerViewAdapter);
         }
     }
 

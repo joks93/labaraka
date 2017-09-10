@@ -1,5 +1,8 @@
 package com.example.nacim.labaraka;
 
+import java.text.NumberFormat;
+import java.util.Locale;
+
 /**
  * Created by nacim on 28/04/17.
  */
@@ -20,4 +23,6 @@ public class Constants {
 
     public final static String urlAPI = "http://10.0.2.2:80/labaraka/android_api/";
 
+    public final static NumberFormat priceFormat = NumberFormat.getCurrencyInstance(Locale.getDefault());
+    public final static String EURO = "€";
 }

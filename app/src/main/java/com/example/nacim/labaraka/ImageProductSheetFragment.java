@@ -11,14 +11,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.squareup.picasso.Picasso;
+
 /**
  * Created by nacim on 28/04/17.
  */
 
 public class ImageProductSheetFragment extends Fragment{
 
-    public ImageProductSheetFragment() {
+    private String urlImage;
+
+    public ImageProductSheetFragment(String urlImage) {
         super();
+        this.urlImage = urlImage;
     }
 
     @Nullable
@@ -26,7 +31,9 @@ public class ImageProductSheetFragment extends Fragment{
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View viewRoot = (ViewGroup) inflater.inflate(R.layout.product_sheet_image, container, false);
         ImageView imageView = (ImageView) viewRoot.findViewById(R.id.product_sheet_image);
-        imageView.setImageDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.jupe, null));
+
+        Picasso.with(getContext()).load(urlImage).into(imageView);
+
         return viewRoot;
     }
 }

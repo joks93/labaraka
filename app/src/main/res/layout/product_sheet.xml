@@ -70,8 +70,7 @@
                     android:textSize="20dp"
                     android:paddingLeft="24dp"
                     android:paddingBottom="5dp"
-                    android:layout_below="@id/product_sheet_viewpager_indicator"
-                    android:text="19€99"/>
+                    android:layout_below="@id/product_sheet_viewpager_indicator"/>
 
                 <TextView
                     android:id="@+id/product_sheet_name"
@@ -80,8 +79,7 @@
                     android:layout_below="@id/product_sheet_price"
                     android:layout_marginLeft="24dp"
                     android:layout_marginRight="24dp"
-                    android:textSize="17dp"
-                    android:text="Mini jupe short à fleur"/>
+                    android:textSize="17dp"/>
 
                 <com.piotrek.customspinner.CustomSpinner
                     android:id="@+id/product_sheet_color_spinner"

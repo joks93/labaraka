@@ -18,6 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.flyco.pageindicator.indicator.RoundCornerIndicaor;
 import com.piotrek.customspinner.CustomSpinner;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,15 +28,23 @@ import java.util.List;
 
 public class ProductSheetActivity extends AppCompatActivity {
 
-    private ArrayList<String> data;
-    private ArrayList<String> sizes;
     private Intent intent;
+    private Product product;
 
+    private TextView nameTextView;
+    private TextView priceTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.product_sheet);
+
+        /* GET WIDGETS */
+        nameTextView = (TextView) findViewById(R.id.product_sheet_name);
+        priceTextView = (TextView) findViewById(R.id.product_sheet_price);
+
+        /* GET INFORMATION FROM INTENT PASSED BY ProductRecyclerViewAdapter class */
+        product = Transitor.gson.fromJson(getIntent().getStringExtra("KEY_PRODUCT_SERIALIZED"), Product.class);
 
         /* FURTHER INTENT */
         intent = new Intent(this, ScreenSlidePagerActivity.class);
@@ -45,22 +54,19 @@ public class ProductSheetActivity extends AppCompatActivity {
         /* TOOLBAR */
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Mini jupe short à fleur");
+        getSupportActionBar().setTitle(product.getName());
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.zzz_close);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
 
-        /* PRINCIPAL VIEW PAGER IMAGES */
-        data = new ArrayList<>();
-        data.add("Image1");
-        data.add("Image2");
-        data.add("Image3");
-        data.add("Image4");
-        data.add("Image5");
+        /* BIND PRODUCTS ATTRIBUTES NAME AND PRICE */
+        nameTextView.setText(product.getName());
+        priceTextView.setText(Constants.priceFormat.format(product.getPrice()));
 
+        /* PRINCIPAL VIEW PAGER IMAGES */
         ViewPager viewPager = (ViewPager) findViewById(R.id.product_sheet_images_viewpager);
-        ImagesViewPagerAdapter imagesViewPagerAdapter = new ImagesViewPagerAdapter(getSupportFragmentManager(), data);
+        ImagesViewPagerAdapter imagesViewPagerAdapter = new ImagesViewPagerAdapter(getSupportFragmentManager(), product);
         viewPager.setAdapter(imagesViewPagerAdapter);
         adjustImagesViewPager(R.id.product_sheet_viewpager_linearlayout);
 
@@ -69,26 +75,22 @@ public class ProductSheetActivity extends AppCompatActivity {
         viewPagerIndicator.setViewPager(viewPager);
 
 
-
         /* SIZE SPINNER */
-        sizes = new ArrayList<>();
-        sizes.add("XS");
-        sizes.add("S");
-        sizes.add("M");
-        sizes.add("L");
-        sizes.add("XL");
-        sizes.add("XXL");
+        String[]sizes = new String[product.getAttributes().getSizes().size()];
+        int i = 0;
+        for (Size size :product.getAttributes().getSizes()) {
+            sizes[i] = size.getValue();
+            i++;
+        }
 
         CustomSpinner sizeSpinner = (CustomSpinner) findViewById(R.id.product_sheet_size_spinner);
-        sizeSpinner.initializeStringValues(sizes.toArray(new String[0]), getResources().getString(R.string.select_size_spinner));
-
+        sizeSpinner.initializeStringValues(sizes, getResources().getString(R.string.select_size_spinner));
 
         /* COLOR SPINNER */
-        List<String> colors = new ArrayList<>();
-        colors.add("NONE");
-
+        String[] color = new String[1];
+        color[0] = product.getAttributes().getColor().getValue().toUpperCase();
         CustomSpinner colorSpinner = (CustomSpinner) findViewById(R.id.product_sheet_color_spinner);
-        colorSpinner.initializeStringValues(colors.toArray(new String[0]), "BLUE");
+        colorSpinner.initializeStringValues(color);
         colorSpinner.setEnabled(false);
 
         /* ASSOCIATED PRODUCT RECYCLER VIEW */
@@ -175,21 +177,22 @@ public class ProductSheetActivity extends AppCompatActivity {
 
     private static class ImagesViewPagerAdapter extends FragmentStatePagerAdapter {
 
-        private ArrayList<String> data;
+        private Product product;
 
-        public ImagesViewPagerAdapter(FragmentManager fm, ArrayList<String> data) {
+            public ImagesViewPagerAdapter(FragmentManager fm, Product product) {
             super(fm);
-            this.data = data;
+            this.product = product;
         }
 
         @Override
         public Fragment getItem(int position) {
-            return new ImageProductSheetFragment();
+            return new ImageProductSheetFragment(product.getImage(position));
         }
 
         @Override
         public int getCount() {
-            return data.size();
+            return product.getURLImages().size();
         }
+
     }
 }

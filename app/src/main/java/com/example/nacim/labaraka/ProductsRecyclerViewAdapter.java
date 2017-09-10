@@ -8,15 +8,22 @@ import android.graphics.Typeface;
 import android.net.Uri;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
+import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
+import java.sql.PreparedStatement;
 import java.util.ArrayList;
 
 /**
@@ -43,22 +50,23 @@ public class ProductsRecyclerViewAdapter extends RecyclerView.Adapter<ProductsRe
         ImageView productImageView = (ImageView) productView.findViewById(R.id.product_grid_cell_imageview);
         productImageView.setMinimumHeight(parent.getMeasuredHeight() / 2);
         productImageView.setMaxHeight(parent.getMeasuredHeight() / 2);
-
         return new ProductViewHolder(productView);
     }
 
     @Override
     public void onBindViewHolder(final ProductViewHolder holder, final int position) {
-        Product product = ProductsFragment.catalogProducts.get(position);
+        final Product product = ProductsFragment.catalogProducts.get(position);
 
-        holder.productImageView.setImageDrawable(ResourcesCompat.getDrawable(context.getResources(), R.drawable.jupe, null));
-        holder.nameTextView.setText(product.getName());
-        holder.priceTextView.setText(String.valueOf(product.getPriceHT()));
+        Picasso.with(context).load(product.getURLdefaultImage()).into(holder.productImageView);
+
+        holder.nameTextView.setText(product.getName( ));
+        holder.priceTextView.setText(Constants.priceFormat.format(product.getPrice()));
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //Product sheet information -> new activity
+                intent.putExtra("KEY_PRODUCT_SERIALIZED", Transitor.gson.toJson(product));
                 context.startActivity(intent);
             }
         });

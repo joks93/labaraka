@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.example.nacim.labaraka.API.CategoryAPI;
 import com.example.nacim.labaraka.API.ProductAPI;
@@ -11,7 +12,9 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
+import okhttp3.OkHttpClient;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -23,11 +26,16 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 
 public class Transitor {
-    private static Gson gson = new GsonBuilder().setLenient().create();
-    private static Retrofit retrofit = new Retrofit.Builder()
+    public static Gson gson = new GsonBuilder().setLenient().create();
+
+    private static OkHttpClient.Builder httpClient = new OkHttpClient.Builder().connectTimeout(2, TimeUnit.MINUTES).readTimeout(2, TimeUnit.MINUTES).writeTimeout(2, TimeUnit.MINUTES);
+    private static Retrofit.Builder builder =
+            new Retrofit.Builder()
             .baseUrl(Constants.urlAPI)
-            .addConverterFactory(GsonConverterFactory.create(gson))
-            .build();
+            .addConverterFactory(GsonConverterFactory.create());
+    private static Retrofit retrofit = builder.client(httpClient.build()).build();
+
+
     private static CategoryAPI serviceCategory = retrofit.create(CategoryAPI.class);
     private static ProductAPI serviceProduct = retrofit.create(ProductAPI.class);
 
@@ -90,7 +98,7 @@ public class Transitor {
         });
     }
 
-    public static void updateCatalogProducts(int id_category, final RecyclerView recyclerView, final RecyclerView.Adapter recyclerViewAdapter) {
+    public static void updateCatalogProducts(final Context context, int id_category, final RecyclerView recyclerView, final RecyclerView.Adapter recyclerViewAdapter) {
         if (! ProductsFragment.catalogProducts.isEmpty())
             return;
 
@@ -99,7 +107,7 @@ public class Transitor {
             public void onResponse(Call<ArrayList<Product>> call, Response<ArrayList<Product>> response) {
                 if (response.isSuccessful()) {
                     for (Product product : response.body()) {
-                        Log.d("RETROFIT-PRODUCTS", "SUCCESSFUL --> ID = " + product.getId() + " NAME = " + product.getName() + " priceHT = " + product.getPriceHT() + " qty = " + product.getQuantity() + " url = " + product.getURLdefaultImage() );
+                        Log.d("RETROFIT-PRODUCTS", "SUCCESSFUL --> NAME = " + product.getName() + " PRICE = " + product.getPrice() + " COLOR = " + product.getAttributes().getColor().getValue());
                     }
                     ProductsFragment.catalogProducts.clear();
                     ProductsFragment.catalogProducts.addAll(response.body());
@@ -113,6 +121,7 @@ public class Transitor {
             @Override
             public void onFailure(Call<ArrayList<Product>> call, Throwable t) {
                 Log.d("RETROFIT-PRODUCTS", "FAILED -->  " + t.getLocalizedMessage());
+                Toast.makeText(context, "erreur réseau :(", Toast.LENGTH_SHORT).show();
                 ProductsFragment.catalogProducts.clear();
             }
         });
